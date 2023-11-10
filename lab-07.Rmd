@@ -24,18 +24,38 @@ evals<-read.csv("data/evals.csv", row.names=1)
 1.  Visualize the distribution of `score` in the dataframe `evals`.
 
 ```{r viz-score}
-# add code here
+evals %>%
+ ggplot(mapping = aes(x = score)) +
+  geom_histogram(binwidth = 0.5, color = "black") +
+  theme_bw() 
+  
+evals %>% 
+  summarise(avg_score = mean(score),
+            median_score = median(score))
 ```
 
-*Add your other details and narratives here.*
+The graph is left skewed, meaning that most students gave their teachers a high score, with the majority choosing 4 or higher, as is shown by the mean being 4.17, and the median being 4.3. This shows that the students give the teachers a high score, meaning they enjoy most of their classes. This would make sense as they are now in university and should enjoy the subject they are taking and share the same interests and passions of the teachers for the subject. 
+
 
 2.  Visualize and describe the relationship between `score` and `bty_avg` using `geom_point()` to represent the data. 
 
 ```{r scatterplot}
-# add code here
+evals %>% 
+  ggplot(mapping = aes(x = score, y = bty_avg)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  theme_bw()
+
+evals %>% 
+  ggplot(mapping = aes(x = score, y = bty_avg)) +
+  geom_jitter() +
+   geom_smooth(method = lm, se = FALSE) + 
+  theme_bw() 
+
+
 ```
 
-*Add your narrative and other details here.*
+*The scatter plot shows a plot of the score and bty_avg, with discrete values clearly apparent, due to the neat rows and columns. The jitter command aims to transform the discrete data into continous data by adding an element of random variation to the location of each point. The initial scatter plot was misleading because it only contained discrete values, therefore the points could only lie on set lines, ruining the purpose of a scatterplot.*
 
 # Exercise 2: Simple Linear regression with a numerical predictor
 
